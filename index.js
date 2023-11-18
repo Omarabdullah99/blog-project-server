@@ -3,16 +3,18 @@ import cors from "cors"
 import morgan from 'morgan';
 import mongoose from 'mongoose';
 import blogs from './api/blogsData.json' assert { type: 'json' };
-
+import UserRouter from './routes/userRoutes.js'
 
 const app = express()
-
 
 //middleware
 app.use(morgan("dev"))
 app.use(express.json({ limit: "30mb", extended: true }));
 app.use(express.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors())
+
+//*Router Middleware
+app.use("/users",UserRouter)
 
 //*mongodb connection
 const MONGODB_URL="mongodb+srv://omar:JhB4IyKLdAzUna1u@blog-server.01rgith.mongodb.net/?retryWrites=true&w=majority"
