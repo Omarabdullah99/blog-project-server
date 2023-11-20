@@ -4,6 +4,7 @@ import morgan from 'morgan';
 import mongoose from 'mongoose';
 import blogs from './api/blogsData.json' assert { type: 'json' };
 import UserRouter from './routes/userRoutes.js'
+import BlogeRouter from './routes/blogRoutes.js'
 
 const app = express()
 
@@ -15,6 +16,7 @@ app.use(cors())
 
 //*Router Middleware
 app.use("/users",UserRouter)
+app.use("/blog",BlogeRouter)
 
 //*mongodb connection
 const MONGODB_URL="mongodb+srv://omar:JhB4IyKLdAzUna1u@blog-server.01rgith.mongodb.net/?retryWrites=true&w=majority"
