@@ -30,6 +30,31 @@ export const getBlogs= async (req,res)=>{
     }
 }
 
+//*getTourById
+export const getBlog=async (req,res)=>{
+    const {id}= req.params
+    try {
+        const blog= await BlogModel.findById(id)
+        res.status(200).json(blog)
+        
+    } catch (error) {
+        res.status(404).json({message:"something wrong"})
+        
+    }
+
+}
+
+export const getBlogByUserId=async(req,res)=>{
+    const {id}=req.params
+    // console.log("userTOur",id)
+    if(!mongoose.Types.ObjectId.isValid(id)){
+        return res.status(404).json({message:"user dosen't exist"})
+    }
+    const userBlogs= await BlogModel.find({creator:id})
+    res.status(200).json(userBlogs)
+
+}
+
 export const testBlog=async(req,res)=>{
     res.status(200).send("okk test")
 
