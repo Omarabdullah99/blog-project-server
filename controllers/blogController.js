@@ -20,6 +20,16 @@ export const createBlog= async(req,res)=>{ //*create Tour like post
     }
 }
 
+export const getBlogs= async (req,res)=>{
+    try {
+        const blogs= await BlogModel.find()
+        res.status(200).send(blogs);
+        
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 export const testBlog=async(req,res)=>{
     res.status(200).send("okk test")
 
