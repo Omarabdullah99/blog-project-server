@@ -4,7 +4,7 @@ import BlogModel from '../models/blogModel.js'
 
 export const createBlog= async(req,res)=>{ //*create Tour like post
     const blog= req.body
-    console.log("blog",blog)
+    // console.log("blog",blog)
     const newBlog= new BlogModel({
         ...blog,
         creator: req.userId, //!don't understand this code
@@ -51,9 +51,35 @@ export const getBlogByUserId=async(req,res)=>{
         return res.status(404).json({message:"user dosen't exist"})
     }
     const userBlogs= await BlogModel.find({creator:id})
+    // console.log("backend",userBlogs)
     res.status(200).json(userBlogs)
-
 }
+
+export const updateBlog = async (req, res) => {
+    const { id } = req.params;
+    // console.log("update",id)
+    const {title, description,imageFile, tags,category,  creator, } = req.body;
+    console.log(req.body)
+    try {
+      if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({ message: `No tour exist with id: ${id}` });
+      }
+  
+      const updatedTour = {
+        creator,
+        title,
+        description,
+        tags,
+        category,
+        imageFile,
+        _id: id,
+      };
+      await BlogModel.findByIdAndUpdate(id, updatedTour, { new: true });
+      res.json(updatedTour);
+    } catch (error) {
+      res.status(404).json({ message: "Something went wrong" });
+    }
+  };
 
 export const testBlog=async(req,res)=>{
     res.status(200).send("okk test")
