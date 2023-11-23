@@ -100,6 +100,17 @@ export const updateBlog = async (req, res) => {
       res.status(404).json({ message: "Something went wrong" });
     }
   };
+
+  export const getBlogBySearch = async (req, res) => {
+    const { searchQuery } = req.query;
+    try {
+      const title = new RegExp(searchQuery, "i");
+      const blogs = await BlogModel.find({ title });
+      res.json(blogs);
+    } catch (error) {
+      res.status(404).json({ message: "Something went wrong" });
+    }
+  };
   
 
 export const testBlog=async(req,res)=>{
