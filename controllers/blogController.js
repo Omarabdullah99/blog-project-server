@@ -111,6 +111,16 @@ export const updateBlog = async (req, res) => {
       res.status(404).json({ message: "Something went wrong" });
     }
   };
+
+  export const getBlogsByTag = async (req, res) => {
+    const { tag } = req.params;
+    try {
+      const blogs = await BlogModel.find({ tags: { $in: tag } });
+      res.json(blogs);
+    } catch (error) {
+      res.status(404).json({ message: "Something went wrong" });
+    }
+  };
   
 
 export const testBlog=async(req,res)=>{
