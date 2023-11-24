@@ -16,6 +16,10 @@ const blogSchema= mongoose.Schema({
       type: Number,
       default: 0,
     },
+    likes: {
+      type: [String],
+      default: [],
+    },
 })
 
 const BlogModel = mongoose.model("Blog", blogSchema)

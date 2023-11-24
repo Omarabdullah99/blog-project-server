@@ -132,6 +132,38 @@ export const updateBlog = async (req, res) => {
       res.status(404).json({ message: "Something went wrong" });
     }
   };
+
+  export const likeBlog = async (req, res) => {
+    const { id } = req.params;
+    console.log("like",id)
+    try {
+      if (!req.userId) {
+        return res.json({ message: "User is not authenticated" });
+      }
+  
+      if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({ message: `No Blog exist with id: ${id}` });
+      }
+  
+      const blog = await BlogModel.findById(id);
+  
+      const index = blog.likes.findIndex((id) => id === String(req.userId));
+  
+      if (index === -1) {
+        blog.likes.push(req.userId);
+      } else {
+        blog.likes = blog.likes.filter((id) => id !== String(req.userId));
+      }
+  
+      const updatedBlog = await BlogModel.findByIdAndUpdate(id, blog, {
+        new: true,
+      });
+  
+      res.status(200).json(updatedBlog);
+    } catch (error) {
+      res.status(404).json({ message: error.message });
+    }
+  };
   
 
 export const testBlog=async(req,res)=>{
