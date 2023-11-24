@@ -30,6 +30,17 @@ export const getBlogs= async (req,res)=>{
     }
 }
 
+export const getLatestBlogs = async (req, res) => {
+  try {
+      const blogs = await BlogModel.find().sort({ createdAt: -1 });
+      res.status(200).send(blogs);
+  } catch (error) {
+      console.log(error);
+      res.status(500).json({ message: "Internal Server Error" });
+  }
+}
+
+
 //*getTourById
 export const getBlog=async (req,res)=>{
     const {id}= req.params

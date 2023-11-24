@@ -1,10 +1,11 @@
 import express from 'express'
-import { createBlog,  deleteBloge,  getBlog, getBlogBySearch, getBlogByUserId, getBlogs, getBlogsByTag, testBlog, updateBlog } from '../controllers/blogController.js'
+import { createBlog,  deleteBloge,  getBlog, getBlogBySearch, getBlogByUserId, getBlogs, getBlogsByTag, getLatestBlogs, testBlog, updateBlog } from '../controllers/blogController.js'
 import auth from '../middleware/auth.js'
 
 const router= express.Router()
 
 router.get("/allblogs",getBlogs)
+router.get("/latestblog",getLatestBlogs)
 router.get("/search", getBlogBySearch);
 router.get("/tag/:tag", getBlogsByTag);
 router.get("/:id",getBlog)
