@@ -21,10 +21,11 @@ export const createBlog= async(req,res)=>{ //*create Tour like post
 }
 
 export const getBlogs= async (req,res)=>{
+  const { page } = req.query;
     try {
         const blogs= await BlogModel.find()
         res.status(200).send(blogs);
-        
+  
     } catch (error) {
         console.log(error)
     }
